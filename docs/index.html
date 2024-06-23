@@ -1,13 +1,27 @@
 <html>
     <head>
         <title>Feddit Migration</title>
-        <script>
-            const r = new Request("https://feddit.de/api/v3/community/list?sort=Hot");
-            fetch(r).then((response) => response.json()).then((out => alert(JSON.stringify(out.communities))))
-        </script>
+        <link rel="stylesheet" href="./css/material.min.css">
+        <script src="./js/material.min.js"></script>
+        <link rel="stylesheet" href="./css/material.icons.css">
     </head>
     <body>
-        <h1>Feddit-Migration</h1>
-        <p>Nur Boilerplate bislang...</p>
+        <div class="mdl-layout mdl-js-layout">
+            <header class="mdl-layout__header">
+              <div class="mdl-layout-icon"></div>
+              <div class="mdl-layout__header-row">
+                <span class="mdl-layout__title">Feddit.de -> Feddit.org Migration</span>
+                <div class="mdl-layout-spacer"></div>
+                <nav class="mdl-navigation">
+                  <a class="mdl-navigation__link" href="https://feddit.de">Feddit.de</a>
+                  <a class="mdl-navigation__link" href="https://feddit.org">Feddit.org</a>
+                  <a class="mdl-navigation__link" href="https://github.com/elvith-de/feddit-migration">Quellcode dieser Seite</a>
+                </nav>
+              </div>
+            </header>
+            <main class="mdl-layout__content">
+                <div>Hier kommt dann der Assistent</div>
+              </main>
+          </div>
     </body>
 </html>
