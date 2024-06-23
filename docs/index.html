@@ -1,12 +1,15 @@
-<html>
+<!doctype html>
+<html lang="de">
     <head>
         <title>Feddit Migration</title>
         <link rel="stylesheet" href="./css/material.min.css">
+        <meta name="description" content="Migration von feddit.de settings zu feddit.org">
         <script src="./js/material.min.js"></script>
         <link rel="stylesheet" href="./css/material.icons.css">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
     </head>
     <body>
-        <div class="mdl-layout mdl-js-layout">
+        <div class="mdl-layout mdl-layout--fixed-header mdl-js-layout mdl-color--grey-100 mdl-js-layout">
             <header class="mdl-layout__header">
               <div class="mdl-layout-icon"></div>
               <div class="mdl-layout__header-row">
@@ -14,7 +17,36 @@
               </div>
             </header>
             <main class="mdl-layout__content">
-                <div>Hier kommt dann der Assistent</div>
+
+                
+
+                <div class="mdl-grid">
+                    <div class="mdl-cell mdl-cell--2-col mdl-cell--hide-tablet mdl-cell--hide-phone"></div>
+                    <div class="mdl-color--white mdl-shadow--4dp content mdl-color-text--grey-800 mdl-cell mdl-cell--8-col">
+                        
+                        <section class="section--center mdl-grid mdl-grid--no-spacing mdl-shadow--2dp">
+                            <div id="dynamic_content">
+                                <div class="mdl-card mdl-cell mdl-cell--12-col">
+                                    <div class="mdl-card__supporting-text">
+                                        <h3>Willkommen</h3>
+                                        <p>
+                                            Mit diesem Assistenten könnt ihr eure Einstellungen, gespeicherten Kommentare und Posts sowie eure abonnierten Communities von Feddit.de nach Feddit.org umziehen.
+                                        </p>
+                                        <p>
+                                            Der Assistent frägt hierfür eure Login-Daten ab. Keine Sorge - diese bleiben lokal in eurem Browser und werden nur direkt an Feddit.de bzw. Feddit.org gesendet. Der Server auf dem der Assistent läuft, wird diese nie erfahren.
+                                        </p>
+                                        <p>
+                                            Wenn ihr den Assistenten über Github Pages besucht, erhält Github nur die Info, dass ihr die Seite aufgerufen habt, jedoch keine weitern Daten. Startet ihr diese über meinen Server, sind auch die Serverlogs anonymisiert und es wird nicht einmal eure IP erfasst.
+                                        </p>
+                                        <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">
+                                            Start
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </section>
+                    </div>
+                </div>
             </main>
 
             <footer class="mdl-mini-footer">
@@ -23,7 +55,7 @@
                   <ul class="mdl-mini-footer__link-list">
                     <li><a href="https://feddit.de">Feddit.de</a></li>
                     <li><a href="https://feddit.org">Feddit.org</a></li>
-                    <li><a href="https://github.com/elvith-de/feddit-migration">Quellcode des Assistenten auf GitHub</a></li>
+                    <li><a href="https://github.com/elvith-de/feddit-migration">❤️ Quellcode auf GitHub</a></li>
                     </ul>
                 </div>
               </footer>
