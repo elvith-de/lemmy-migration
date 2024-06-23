@@ -1,6 +1,10 @@
 <html>
     <head>
         <title>Feddit Migration</title>
+        <script>
+            const r = new Request("https://feddit.de/api/v3/community/list?sort=Hot");
+            fetch(r).then((response) => response.json()).then((out => alert(JSON.stringify(out.communities))))
+        </script>
     </head>
     <body>
         <h1>Feddit-Migration</h1>
