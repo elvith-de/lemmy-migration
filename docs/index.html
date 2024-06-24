@@ -9,7 +9,7 @@
         <script src="./material-design-lite/material.min.js"></script>
         <script src="./jquery/jquery-3.7.1.min.js"></script>
         <script src="./js/app.js"></script>
-        <meta name="description" content="Migration von feddit.de settings zu feddit.org">
+        <meta name="description" content="Migration von Usereinstellungen zwischen Lemmy-Instanzen">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
     </head>
     <body>
@@ -17,7 +17,7 @@
             <header class="mdl-layout__header">
               <div class="mdl-layout-icon"></div>
               <div class="mdl-layout__header-row">
-                <span class="mdl-layout__title">Feddit.de -> Feddit.org Migration</span>
+                <span class="mdl-layout__title">Lemmmy-User-Migration</span>
               </div>
             </header>
             <main class="mdl-layout__content">
@@ -31,16 +31,20 @@
                                     <div class="mdl-card__supporting-text">
                                         <h3>Willkommen</h3>
                                         <p>
-                                            Mit diesem Assistenten könnt ihr eure Einstellungen, gespeicherten Kommentare und Posts sowie eure abonnierten Communities von Feddit.de nach Feddit.org umziehen.
+                                            Mit diesem Assistenten könnt ihr eure Einstellungen, gespeicherten Kommentare und Posts sowie eure abonnierten Communities einer Lemmy-Instanz zu einer anderen umziehen. 
+                                            Entwickelt wurde das Tool für den Umzug von Usern von <a href="https://feddit.de">feddit.de</a> zu <a href="https://feddit.org">feddit.org</a>.
+                                            Aufgrund von Serverproblemen von feddit.de ist ein manueller Export der Accountdaten nicht möglich, jedoch ist die API weiterhin online. 
+                                            Dieses Tool erlaubt einen Export und ein Backup der Daten, sowie den automatischen Import in eine andere Instanz.
                                         </p>
                                         <p>
-                                            Der Assistent frägt hierfür eure Login-Daten ab. Keine Sorge - diese bleiben lokal in eurem Browser und werden nur direkt an Feddit.de bzw. Feddit.org gesendet. Der Server auf dem der Assistent läuft, wird diese nie erfahren.
+                                            Der Assistent frägt für den Export bzw. Import eure Login-Daten ab. Keine Sorge - diese bleiben lokal in eurem Browser und werden nur direkt an die eingegebenen Instanzen gesendet. Der Server auf dem der Assistent läuft, wird diese nie erfahren.
                                         </p>
                                         <p>
-                                            Datenschutz: Dieser Assistent ist aktuell auf Github Pages gehostet. Somit erhält Github eure IP und die Info, dass ihr die Seite besucht habt. Es werden jedoch keine Cookies, Tracker,... genutzt und keine Daten an Drittserver (außer den eingegebenen Lemmy-Instanzen) gesendet
+                                            Datenschutz: Dieser Assistent ist aktuell auf Github Pages gehostet. Somit erhält Github eure IP und die Info, dass ihr die Seite besucht habt. Es werden jedoch keine Cookies, Tracker,... genutzt und keine Daten an Drittserver (außer den eingegebenen Lemmy-Instanzen) gesendet.
+                                            Bei der Erstellung der Seite wurde darauf geachtet auch keine weiteren externen Ressourcen einzubinden.
                                         </p>
                                         <p class="warning">
-                                            Bitte beachtet, dass der Assistent noch im Test-Stadium ist. Kein Gewähr für die korrekte Funktion!
+                                            Bitte beachtet, dass der Assistent noch im Beta-Stadium ist. Kein Gewähr für die korrekte Funktion!
                                         </p>
                                     </div>
                                     <div class="mdl-card__actions">
@@ -158,7 +162,7 @@
                                         </p>
                                         <form action="#">
                                             <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                                              <textarea class="mdl-textfield__input" type="text" rows= "50" id="exportTextfield" ></textarea>
+                                              <textarea class="mdl-textfield__input" type="text" rows= "20" id="exportTextfield" ></textarea>
                                               <label class="mdl-textfield__label" for="exportTextfield">Exportierte Daten</label>
                                             </div>
                                           </form>
@@ -214,9 +218,8 @@
             </main>
             <footer class="mdl-mini-footer">
                 <div class="mdl-mini-footer__left-section">
-                  <div class="mdl-logo">Feddit.de -> Feddit.org Migration</div>
+                  <div class="mdl-logo">Lemmmy-User-Migration</div>
                   <ul class="mdl-mini-footer__link-list">
-                    <li><a href="https://feddit.de">Feddit.de</a></li>
                     <li><a href="https://feddit.org">Feddit.org</a></li>
                     <li><a href="https://github.com/elvith-de/feddit-migration">❤️ Quellcode auf GitHub</a></li>
                     </ul>
