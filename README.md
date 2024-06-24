@@ -1,7 +1,7 @@
 # lemmy-migration
 Site to migrate settings, etc. from feddit.de to feddit.org
 
-Currently in development. Try it here: https://elvith-de.github.io/feddit-migration
+Currently in development. Try it here: https://elvith-de.github.io/lemmy-migration
 
 Static site, runs locally in browser. Connects to (defect) feddit.de, exports user settings and imports them to feddit.org.
 
