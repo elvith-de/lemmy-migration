@@ -10,5 +10,5 @@ Basic features:
 * Optionally save exported data to a local file
 * Login and import settings to feddit.org (or any other instance)
 
-Planned future settings:
+Planned future feature:
 * optionally analyze joined communities and cross reference to local communities on target instance and offer to add those while the migration
