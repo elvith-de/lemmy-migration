@@ -1,4 +1,4 @@
-# feddit-migration
+# lemmy-migration
 Site to migrate settings, etc. from feddit.de to feddit.org
 
 Currently in development. Try it here: https://elvith-de.github.io/feddit-migration
