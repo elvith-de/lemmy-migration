@@ -1,3 +1,13 @@
 .invisible{
     display: none !important;
 }
+
+#snackbar-success {
+    background-color: #008035;
+    color: #000000;
+}
+
+#snackbar-error {
+    background-color: #830000;
+    color: #ffffff;
+}

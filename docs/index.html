@@ -1,6 +1,7 @@
 <!doctype html>
 <html lang="de">
     <head>
+        <meta charset="utf-8">
         <title>Feddit Migration</title>
         <link rel="stylesheet" href="./material-design-lite/material.min.css">
         <link rel="stylesheet" href="./material-design-lite/material.icons.css">
@@ -51,16 +52,20 @@
 
                         <section class="section--center mdl-grid mdl-grid--no-spacing mdl-shadow--2dp" id="step-login-source">
                             <div id="dynamic_content">
-                                <div class="mdl-card mdl-cell mdl-cell--8-col">
+                                <div class="mdl-card mdl-cell mdl-cell--3-col">
                                     <div class="mdl-card__supporting-text">
                                         <h3>Login für Quellinstanz</h3>
                                         <form action="#">
+                                            <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                                                <input class="mdl-textfield__input" value="feddit.de" type="text" id="instance-source" required>
+                                                <label class="mdl-textfield__label" for="sample3">Quellinstanz:</label>
+                                            </div>
                                             <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
                                                 <input class="mdl-textfield__input" type="text" id="username-source" required>
                                                 <label class="mdl-textfield__label" for="sample3">Username:</label>
                                             </div>
                                             <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                                                <input class="mdl-textfield__input" type="text" id="password-source" required>
+                                                <input class="mdl-textfield__input" type="password" autocomplete="off" spellcheck="false" id="password-source" required>
                                                 <label class="mdl-textfield__label" for="sample3">Passwort:</label>
                                             </div>
                                             <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
@@ -68,19 +73,146 @@
                                                 <label class="mdl-textfield__label" for="sample3">2FA-Code (optional):</label>
                                             </div>
                                           </form>
+                                          <div id="source-login-progress" class="mdl-progress mdl-js-progress mdl-progress__indeterminate invisible"></div>
                                     </div>
                                     <div class="mdl-card__actions">
                                         <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent" id="btn-step-login-source" disabled>
-                                            Start
+                                            Login &amp; Export
                                         </button>
                                     </div>
                                 </div>
                             </div>
                         </section>
+
+                        <section class="section--center mdl-grid mdl-grid--no-spacing mdl-shadow--2dp" id="step-export-data">
+                            <div id="dynamic_content">
+                                <div class="mdl-card mdl-cell mdl-cell--12-col">
+                                    <div class="mdl-card__supporting-text">
+                                        <h3>Export</h3>
+                                        <p>
+                                            Der Export wird angefordert. Bitte warten.
+                                        </p>
+                                        <div id="source-export-progress" class="mdl-progress mdl-js-progress mdl-progress__indeterminate"></div>
+                                        <p id="export-succeeded" class="">
+                                            Export wurde durchgeführt.
+                                        </p>
+                                        <p id="export-failed" class="">
+                                            Fehler beim Export
+                                        </p>
+                                    </div>
+                                    <div class="mdl-card__actions">
+                                        <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent" id="btn-step-export-data-retry">
+                                            Wiederholen
+                                        </button>    
+                                        <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent" id="btn-step-export-data">
+                                            Weiter
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </section>
+
+                        <section class="section--center mdl-grid mdl-grid--no-spacing mdl-shadow--2dp" id="step-login-target">
+                            <div id="dynamic_content">
+                                <div class="mdl-card mdl-cell mdl-cell--3-col">
+                                    <div class="mdl-card__supporting-text">
+                                        <h3>Login für Zielinstanz</h3>
+                                        <form action="#">
+                                            <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                                                <input class="mdl-textfield__input" value="feddit.org" type="text" id="instance-target" required>
+                                                <label class="mdl-textfield__label" for="sample3">Zielinstanz:</label>
+                                            </div>
+                                            <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                                                <input class="mdl-textfield__input" type="text" id="username-target" required>
+                                                <label class="mdl-textfield__label" for="sample3">Username:</label>
+                                            </div>
+                                            <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                                                <input class="mdl-textfield__input" type="password" autocomplete="off" spellcheck="false" id="password-target" required>
+                                                <label class="mdl-textfield__label" for="sample3">Passwort:</label>
+                                            </div>
+                                            <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                                                <input class="mdl-textfield__input" type="text" id="2fa-target">
+                                                <label class="mdl-textfield__label" for="sample3">2FA-Code (optional):</label>
+                                            </div>
+                                          </form>
+                                          <div id="target-login-progress" class="mdl-progress mdl-js-progress mdl-progress__indeterminate invisible"></div>
+                                    </div>
+                                    <div class="mdl-card__actions">
+                                        <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent" id="btn-step-login-target" disabled>
+                                            Login
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </section>
+
+                        <section class="section--center mdl-grid mdl-grid--no-spacing mdl-shadow--2dp" id="step-save-data">
+                            <div id="dynamic_content">
+                                <div class="mdl-card mdl-cell mdl-cell--12-col">
+                                    <div class="mdl-card__supporting-text">
+                                        <h3>Backup erstellen</h3>
+                                        <p>
+                                            Der Export wurde durchgeführt. Mit Klick auf den Export-Button kann ein Backup des Exports als Datei gespeichert werden.
+                                        </p>
+                                        <form action="#">
+                                            <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                                              <textarea class="mdl-textfield__input" type="text" rows= "50" id="exportTextfield" ></textarea>
+                                              <label class="mdl-textfield__label" for="exportTextfield">Exportierte Daten</label>
+                                            </div>
+                                          </form>
+                                    </div>
+                                    <div class="mdl-card__actions">
+                                        <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent" id="btn-step-step-save-data-download">
+                                            Download
+                                        </button>    
+                                        <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent" id="btn-step-save-data">
+                                            Weiter zum Import
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </section>
+
+                        <section class="section--center mdl-grid mdl-grid--no-spacing mdl-shadow--2dp" id="step-import-data">
+                            <div id="dynamic_content">
+                                <div class="mdl-card mdl-cell mdl-cell--12-col">
+                                    <div class="mdl-card__supporting-text">
+                                        <h3>Import</h3>
+                                        <p>
+                                            Der Import wird durchgeführt. Bitte warten.
+                                        </p>
+                                        <div id="source-import-progress" class="mdl-progress mdl-js-progress mdl-progress__indeterminate"></div>
+                                        <p id="import-succeeded" class="">
+                                            Import wurde durchgeführt.
+                                        </p>
+                                        <p id="import-failed" class="">
+                                            Fehler beim Import
+                                        </p>
+                                    </div>
+                                    <div class="mdl-card__actions">
+                                        <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent" id="btn-step-import-data-retry">
+                                            Wiederholen
+                                        </button>    
+                                        <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent" id="btn-step-import-data">
+                                            Weiter
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </section>
+
+
+                        <div id="snackbar-error" class="mdl-js-snackbar mdl-snackbar snackbar-error">
+                            <div class="mdl-snackbar__text"></div>
+                            <button class="mdl-snackbar__action" type="button"></button>
+                        </div>
+                        <div id="snackbar-success" class="mdl-js-snackbar mdl-snackbar snackbar-error">
+                            <div class="mdl-snackbar__text"></div>
+                            <button class="mdl-snackbar__action" type="button"></button>
+                        </div>
                     </div>
                 </div>
             </main>
-
             <footer class="mdl-mini-footer">
                 <div class="mdl-mini-footer__left-section">
                   <div class="mdl-logo">Feddit.de -> Feddit.org Migration</div>
