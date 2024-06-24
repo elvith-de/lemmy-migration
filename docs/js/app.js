@@ -37,7 +37,7 @@ class MigrationApp{
     ]);
 
     btnMapping = new Map([
-        ['btn-step-export-data-retry', this.restartExport],
+        ['btn-step-export-data-export', this.stepExportDataExecute],
         ['btn-step-import-data-retry', this.restartImport],
         ['btn-step-step-save-data-download', this.downloadExport],
     ]);
@@ -124,12 +124,8 @@ class MigrationApp{
         }
     }
 
-
-    async enterStepExportData(app){
-        $('#btn-step-export-data').prop("disabled",true);
-        $('#btn-step-export-data-retry').prop("disabled",true);
-        $('#export-succeeded').addClass('invisible');
-        $('#export-failed').addClass('invisible');
+    async stepExportDataExecute(app){
+        $('#source-export-progress').removeClass('invisible');
         let response = null
         try {
             response = await exportData(app.sourceInstance, app.sourceJWT);
@@ -138,21 +134,34 @@ class MigrationApp{
                 app.showSuccessSnackbar("Export succeeded");
                 $('#source-export-progress').addClass('invisible');
                 $('#btn-step-export-data').prop("disabled",false);
+                $('#btn-step-export-data-export').prop("disabled",true);
                 $('#export-succeeded').removeClass('invisible');
                 console.log('ready');
                 console.log(app.exportedData);
+                $('#source-export-progress').addClass('invisible');
             }else{
                     const jsonResponse = await response.json();
-                    console.log(JSON.stringify(jsonResponse));
-                    app.showErrorSnackbar(JSON.stringify(jsonResponse));
-                    $('#btn-step-export-data-retry').prop("disabled",false);
+                    const message =JSON.stringify(jsonResponse);
+                    console.log(message);
+                    app.showErrorSnackbar(message);
+                    $('#btn-step-export-data-export').prop("disabled",false);
                     $('#export-failed').removeClass('invisible');
+                    $('#export-error-text').text(message);
+                    $('#source-export-progress').addClass('invisible');
                 }
         } catch (error) {
             console.log(error);
             app.showErrorSnackbar(error);
-            $('#btn-step-export-data-retry').prop("disabled",false);
+            $('#btn-step-export-data-export').prop("disabled",false);
+            $('#source-export-progress').addClass('invisible');
         }
+    }
+
+    async enterStepExportData(app){
+        $('#btn-step-export-data').prop("disabled",true);
+        $('#btn-step-export-data-export').prop("disabled",false);
+        $('#export-succeeded').addClass('invisible');
+        $('#export-failed').addClass('invisible');
     }
 
     completeStepExportData(app){
