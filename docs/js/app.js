@@ -16,9 +16,9 @@ class MigrationApp{
         ["init", 'step-start'],
         ['step-start', 'step-login-source'],
         ['step-login-source', 'step-export-data'],
-        ['step-export-data', 'step-login-target'],
-        ['step-login-target', 'step-save-data'],
-        ['step-save-data', 'step-import-data'],
+        ['step-export-data', 'step-save-data'],
+        ['step-save-data', 'step-login-target'],
+        ['step-login-target', 'step-import-data'],
         
     ]);
 
