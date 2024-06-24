@@ -7,7 +7,7 @@
     color: #000000;
 }
 
-#snackbar-error {
+#snackbar-error, .warning{
     background-color: #830000;
     color: #ffffff;
 }
