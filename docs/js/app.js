@@ -37,8 +37,8 @@ class MigrationApp{
     ]);
 
     btnMapping = new Map([
-        ['btn-step-export-data-retry', this.restartExport],
-        ['btn-step-import-data-retry', this.restartImport],
+        ['btn-step-export-data-export', this.stepExportDataExecute],
+        ['btn-step-import-data-import', this.stepImportDataExecute],
         ['btn-step-step-save-data-download', this.downloadExport],
     ]);
 
@@ -95,64 +95,82 @@ class MigrationApp{
         a.remove();
     }
 
-    async enterStepImportData(app){
-        $('#btn-step-import-data-retry').prop("disabled",true);
-        $('#import-succeeded').addClass('invisible');
-        $('#import-failed').addClass('invisible');
+
+    async stepImportDataExecute(app){
+        $('#btn-step-import-data-import').prop("disabled",true);
+        $('#source-import-progress').removeClass('invisible');
         let response = null
         try {
             response = await importData(app.targetInstance, app.targetJWT, app.exportedData);
             if(response.ok){
                 app.result = await response.json();
-                app.showSuccessSnackbar("Import succeeded");
-                $('#source-import-progress').addClass('invisible');
-                $('#btn-step-import-data').prop("disabled",false);
+                app.showSuccessSnackbar("Import erfolgreich!");
+                $('#target-import-progress').addClass('invisible');
                 $('#import-succeeded').removeClass('invisible');
                 console.log('ready');
                 console.log(app.result);
             }else{
                     const jsonResponse = await response.json();
-                    console.log(JSON.stringify(jsonResponse));
-                    app.showErrorSnackbar(JSON.stringify(jsonResponse));
-                    $('#btn-step-import-data-retry').prop("disabled",false);
+                    const message =JSON.stringify(jsonResponse);
+                    console.log(message);
+                    app.showErrorSnackbar(message);
+                    $('#btn-step-import-data-import').prop("disabled",false);
                     $('#import-failed').removeClass('invisible');
+                    $('#import-error-text').text(message);
+                    $('#target-import-progress').addClass('invisible');
                 }
         } catch (error) {
             console.log(error);
             app.showErrorSnackbar(error);
-            $('#btn-step-import-data-retry').prop("disabled",false);
+            $('#btn-step-import-data-import').prop("disabled",false);
         }
     }
+    enterStepImportData(app){
+        $('#btn-step-import-data-import').prop("disabled",false);
+        $('#import-succeeded').addClass('invisible');
+        $('#import-failed').addClass('invisible');
+        
+    }
 
-
-    async enterStepExportData(app){
-        $('#btn-step-export-data').prop("disabled",true);
-        $('#btn-step-export-data-retry').prop("disabled",true);
-        $('#export-succeeded').addClass('invisible');
-        $('#export-failed').addClass('invisible');
+    async stepExportDataExecute(app){
+        $('#btn-step-export-data-export').prop("disabled",true);
+        $('#source-export-progress').removeClass('invisible');
         let response = null
         try {
             response = await exportData(app.sourceInstance, app.sourceJWT);
             if(response.ok){
                 app.exportedData = await response.json();
-                app.showSuccessSnackbar("Export succeeded");
+                app.showSuccessSnackbar("Export erfolgreich!");
                 $('#source-export-progress').addClass('invisible');
                 $('#btn-step-export-data').prop("disabled",false);
+                $('#btn-step-export-data-export').prop("disabled",true);
                 $('#export-succeeded').removeClass('invisible');
                 console.log('ready');
                 console.log(app.exportedData);
+                $('#source-export-progress').addClass('invisible');
             }else{
                     const jsonResponse = await response.json();
-                    console.log(JSON.stringify(jsonResponse));
-                    app.showErrorSnackbar(JSON.stringify(jsonResponse));
-                    $('#btn-step-export-data-retry').prop("disabled",false);
+                    const message =JSON.stringify(jsonResponse);
+                    console.log(message);
+                    app.showErrorSnackbar(message);
+                    $('#btn-step-export-data-export').prop("disabled",false);
                     $('#export-failed').removeClass('invisible');
+                    $('#export-error-text').text(message);
+                    $('#source-export-progress').addClass('invisible');
                 }
         } catch (error) {
             console.log(error);
             app.showErrorSnackbar(error);
-            $('#btn-step-export-data-retry').prop("disabled",false);
+            $('#btn-step-export-data-export').prop("disabled",false);
+            $('#source-export-progress').addClass('invisible');
         }
+    }
+
+    enterStepExportData(app){
+        $('#btn-step-export-data').prop("disabled",true);
+        $('#btn-step-export-data-export').prop("disabled",false);
+        $('#export-succeeded').addClass('invisible');
+        $('#export-failed').addClass('invisible');
     }
 
     completeStepExportData(app){
@@ -175,7 +193,7 @@ class MigrationApp{
         if(response.ok){
             const jsonResponse = await response.json();
             app.targetJWT = jsonResponse.jwt;
-            app.showSuccessSnackbar("Login completed");
+            app.showSuccessSnackbar("Login erfolgreich!");
             $('#target-login-progress').addClass('invisible');
             app.targetInstance = instanceTarget;
             return true;
@@ -208,7 +226,7 @@ class MigrationApp{
         if(response.ok){
             const jsonResponse = await response.json();
             app.sourceJWT = jsonResponse.jwt;
-            app.showSuccessSnackbar("Login completed");
+            app.showSuccessSnackbar("Login erfolgreich!");
             $('#source-login-progress').addClass('invisible');
             app.sourceInstance = instanceSource;
             return true;
