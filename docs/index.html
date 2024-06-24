@@ -100,7 +100,7 @@
                                         </p>
                                         <p>
                                             Viele Lemmy-Instanzen haben ein restriktives Limit, wieviele "teure" Anfragen in einem Zeitraum durch User gestellt werden können. 
-                                            Sollte der Export mit der Fehlermeldung eines rate_limits fehlschlagen, versucht den Export nach mehreren Minuten erneut. 
+                                            Sollte der Export mit der Fehlermeldung "{"error":"rate_limit_error"}" fehlschlagen, versucht den Export nach mehreren Minuten erneut. 
                                         </p>
                                         <div id="source-export-progress" class="invisible">
                                             <div  class="mdl-spinner mdl-js-spinner is-active"></div>
@@ -193,19 +193,26 @@
                                     <div class="mdl-card__supporting-text">
                                         <h3>Import</h3>
                                         <p>
-                                            Der Import wird durchgeführt. Bitte warten.
+                                            Mit einem Klick auf "Import" kann der Import gestartet werden.
                                         </p>
-                                        <div id="source-import-progress" class="mdl-progress mdl-js-progress mdl-progress__indeterminate"></div>
+                                        <p>
+                                            Viele Lemmy-Instanzen haben ein restriktives Limit, wieviele "teure" Anfragen in einem Zeitraum durch User gestellt werden können. 
+                                            Sollte der Export mit der Fehlermeldung "{"error":"rate_limit_error"}", versucht den Export nach mehreren Minuten erneut. 
+                                        </p>
+                                        <div id="target-import-progress" class="invisible">
+                                            <div  class="mdl-spinner mdl-js-spinner is-active"></div>
+                                            <p>Der Import wird angefordert. Bitte warten...</p>
+                                        </div>
                                         <p id="import-succeeded" class="">
                                             Import wurde durchgeführt.
                                         </p>
                                         <p id="import-failed" class="">
-                                            Fehler beim Import
+                                            Fehler beim Import: <br /> <span id="import-error-text"></span>
                                         </p>
                                     </div>
                                     <div class="mdl-card__actions">
-                                        <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent" id="btn-step-import-data-retry">
-                                            Wiederholen
+                                        <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent" id="btn-step-import-data-import">
+                                            Import
                                         </button>    
                                     </div>
                                 </div>
