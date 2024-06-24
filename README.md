@@ -5,10 +5,10 @@ Currently in development. Try it here: https://elvith-de.github.io/feddit-migrat
 
 Static site, runs locally in browser. Connects to (defect) feddit.de, exports user settings and imports them to feddit.org.
 
-Planned basic features:
-* Login and export settings from feddit.de
-* Save exported data to a local file
-* Login and import settings to feddit.org
+Basic features:
+* Login and export settings from feddit.de (or any other instance)
+* Optionally save exported data to a local file
+* Login and import settings to feddit.org (or any other instance)
 
 Planned future settings:
-* optionally analyze joined communities on feddit.de and cross reference to feddit.org equivalents and add those while the migration
+* optionally analyze joined communities and cross reference to local communities on target instance and offer to add those while the migration
