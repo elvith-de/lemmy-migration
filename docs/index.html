@@ -146,33 +146,12 @@
                                                 Communities abrufen
                                             </button>
                                         </form>
+                                        <div id="fetch-community-progress" class="mdl-progress mdl-js-progress mdl-progress__indeterminate invisible"></div>
                                         <!--   Abfrage der angehakten Checkboxen dann mit $('#community-add-table tbody input:checked').closest('tr')  !--> 
-                                        <table class="mdl-data-table mdl-js-data-table mdl-data-table--selectable mdl-shadow--2dp " id="community-add-table">
-                                            <thead>
-                                              <tr>
-                                                <th class="mdl-data-table__cell--non-numeric">Icon</th>
-                                                <th class="mdl-data-table__cell--non-numeric">Title</th>
-                                                <th class="mdl-data-table__cell--non-numeric">Community</th>
-                                              </tr>
-                                            </thead>
-                                            <tbody>
-                                              <tr id="community-add-0">
-                                                <td class="mdl-data-table__cell--non-numeric"><img src="https://feddit.org/pictrs/image/a08f4786-6acf-4f96-8e07-5e03c88f4782.png" class="community-icon"></td>
-                                                <td class="mdl-data-table__cell--non-numeric">Science Fiction</td>
-                                                <td class="mdl-data-table__cell--non-numeric">!scifi@feddit.org</td>
-                                              </tr>
-                                              <tr id="community-add-1">
-                                                <td class="mdl-data-table__cell--non-numeric"></td>
-                                                <td class="mdl-data-table__cell--non-numeric">Haupteingang</td>
-                                                <td class="mdl-data-table__cell--non-numeric">!main@feddit.org</td>
-                                              </tr>
-                                              <tr id="community-add-2">
-                                                <td class="mdl-data-table__cell--non-numeric"><img src="https://feddit.org/pictrs/image/39f96169-0d0b-488b-8dcb-633044ecde94.jpeg" class="community-icon"></td>
-                                                <td class="mdl-data-table__cell--non-numeric">Nachrichten (Welt)</td>
-                                                <td class="mdl-data-table__cell--non-numeric">!nachrichten_int@feddit.org</td>
-                                              </tr>
-                                            </tbody>
-                                          </table>
+                                        <div id="container-add-community-table">
+                                            <!-- dynamically generated -->
+                                        </div>
+                                          
                                     </div>
                                     <div class="mdl-card__actions">
                                         <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent" id="btn-step-join-communities-add">

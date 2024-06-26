@@ -13,7 +13,15 @@
 }
 
 .community-icon {
-    border-radius: 50%;
-    width: 30px;
-    height: 30px;
+  width: 25px;
+  height: 25px;
+  border-radius: 0.25em;
+}
+
+#community-add-table {
+    width: 100%;
+}
+#community-add-table td{
+    word-break:break-all;
+    white-space:pre-wrap; 
 }

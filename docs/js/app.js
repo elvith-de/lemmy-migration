@@ -35,12 +35,14 @@ class MigrationApp{
     enterStepMap = new Map([
         ['step-export-data', this.enterStepExportData],
         ['step-import-data', this.enterStepImportData],
-        ['step-save-data', this.enterStepSaveData]
+        ['step-save-data', this.enterStepSaveData],
+        ['step-join-communities', this.enterStepJoinCommunities],
     ]);
 
     btnMapping = new Map([
         ['btn-step-export-data-export', this.stepExportDataExecute],
         ['btn-step-import-data-import', this.stepImportDataExecute],
+        ['btn-step-join-communities-request', this.stepAddCommunitiesFetchExecute],
         ['btn-step-step-save-data-download', this.downloadExport],
     ]);
 
@@ -127,11 +129,113 @@ class MigrationApp{
             $('#btn-step-import-data-import').prop("disabled",false);
         }
     }
+
     enterStepImportData(app){
         $('#btn-step-import-data-import').prop("disabled",false);
         $('#import-succeeded').addClass('invisible');
         $('#import-failed').addClass('invisible');
         
+    }
+
+    renderCommunityRow(app, community, tbodyElement){
+        let row = document.createElement('tr');
+        row.id = 'community-add-id-'+community.id; //dynamic
+        tbodyElement.appendChild(row);
+
+        let cell = document.createElement('td');
+        cell.className = 'mdl-data-table__cell--non-numeric';
+        row.appendChild(cell);
+
+        if(community.icon){
+            let img = document.createElement('img');
+            img.className = 'community-icon';
+            img.setAttribute('src', community.icon); //dynamic
+            cell.appendChild(img);
+        }
+
+        cell = document.createElement('td');
+        cell.className = 'mdl-data-table__cell--non-numeric';
+        cell.innerText = community.title;
+        row.appendChild(cell);
+
+        cell = document.createElement('td');
+        cell.className = 'mdl-data-table__cell--non-numeric';
+        cell.innerText = '!'+community.name+'@'+app.targetInstance;
+        row.appendChild(cell);
+    }
+
+    renderCommunityTable(app, communities){
+        //table
+        let table = document.createElement('table');
+        table.id = 'community-add-table'
+        table.classList.add('mdl-data-table');
+        table.classList.add('mdl-js-data-table');
+        table.classList.add('mdl-data-table--selectable');
+        table.classList.add('mdl-shadow--2dp');
+        //table head
+        let thead = document.createElement('thead');
+        table.appendChild(thead);
+        let row = document.createElement('tr');
+        thead.appendChild(row);
+        let cell = document.createElement('th');
+        cell.className = 'mdl-data-table__cell--non-numeric';
+        cell.innerText = 'Icon';
+        row.appendChild(cell);
+        cell = document.createElement('th');
+        cell.className = 'mdl-data-table__cell--non-numeric';
+        cell.innerText = 'Title';
+        row.appendChild(cell);
+        cell = document.createElement('th');
+        cell.className = 'mdl-data-table__cell--non-numeric';
+        cell.innerText = 'Community';
+        row.appendChild(cell);
+        
+        //table body
+        let tbody = document.createElement('tbody');
+        table.appendChild(tbody);
+        
+        communities.forEach(
+            (community) => {
+                app.renderCommunityRow(app, community.community, tbody);
+            }
+        )
+        
+        componentHandler.upgradeElement(table);
+        $('#container-add-community-table').append(table);
+    }
+
+    stepAddCommunitiesFilterAndSort(app, communitiesLocal, exportedData){
+        //const joinedCommunities = exportedData.followed_communities.map((url) => url.substring(url.lastIndexOf('/')+1));
+        const withoutJoinedComm =  communitiesLocal.filter((lc) => {return !exportedData.followed_communities.includes(lc.community.actor_id)});
+        return test;
+        //return ;
+    }
+
+    async stepAddCommunitiesFetchExecute(app){
+        $('#btn-step-join-communities-request').prop("disabled", true);
+        $('#fetch-community-progress').removeClass('invisible');
+        $('#community-add-table').remove();
+        app.targetInstance = $('#join-community-instance').val();
+        
+        try{
+            let communities = await fetchLocalCommunities(app.targetInstance);
+            debugger
+            //communities = app.stepAddCommunitiesFilterAndSort(app, communities, app.exportedData);
+            communities = app.stepAddCommunitiesFilterAndSort(app, communities, testexport_org);
+
+            app.renderCommunityTable(app, communities);
+        }catch (error) {    
+            console.log(error);
+            app.showErrorSnackbar(error);
+        }
+        $('#btn-step-join-communities-request').prop("disabled", false);
+        $('#fetch-community-progress').addClass('invisible');
+    }
+
+    enterStepJoinCommunities(app){
+
+        $('#btn-step-join-communities-request').prop("disabled", false);
+
     }
 
     async stepExportDataExecute(app){
@@ -337,4 +441,39 @@ async function loginLemmy(instance, username, password, twoFASource){
             }),
         });
         return response;
+    }
+
+    async function fetchLocalCommunities(instance){
+
+        let responses = [];
+        let fetchMore = true;
+        let page = 1;
+        const limit = 50;
+
+            do {
+                const response = await fetch("https://"+instance+"/api/v3/community/list?type_=Local&limit="+limit+"&page="+page+"&show_nsfw=true&sort=New", {
+                    method: "GET", 
+                    mode: "cors", 
+                    cache: "no-cache", 
+                    credentials: "same-origin",
+                    referrerPolicy: "strict-origin-when-cross-origin", 
+                });
+                console.log("fetch community response:", response.status);
+                if(response.ok){
+                    const jsonResponse = await response.json();
+                    responses = responses.concat(jsonResponse.communities);
+                    if(jsonResponse.communities.length < limit){
+                        fetchMore = false;
+                    }
+                    page++;
+                }else{
+                    const jsonResponse = await response.json();
+                    console.log(JSON.stringify(jsonResponse));
+                    app.showErrorSnackbar(JSON.stringify(jsonResponse));
+                    fetchMore = false;
+                }
+            }while (fetchMore);
+        
+
+        return responses;
     }
