@@ -11,3 +11,17 @@
     background-color: #830000;
     color: #ffffff;
 }
+
+.community-icon {
+  width: 25px;
+  height: 25px;
+  border-radius: 0.25em;
+}
+
+#community-add-table {
+    width: 100%;
+}
+#community-add-table td{
+    word-break:break-all;
+    white-space:pre-wrap; 
+}

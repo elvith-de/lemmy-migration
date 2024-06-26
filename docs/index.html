@@ -9,6 +9,7 @@
         <script src="./material-design-lite/material.min.js"></script>
         <script src="./jquery/jquery-3.7.1.min.js"></script>
         <script src="./js/app.js"></script>
+        <script src="./js/test.js"></script>
         <meta name="description" content="Migration von Usereinstellungen zwischen Lemmy-Instanzen">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
     </head>
@@ -42,9 +43,6 @@
                                         <p>
                                             Datenschutz: Dieser Assistent ist aktuell auf Github Pages gehostet. Somit erhält Github eure IP und die Info, dass ihr die Seite besucht habt. Es werden jedoch keine Cookies, Tracker,... genutzt und keine Daten an Drittserver (außer den eingegebenen Lemmy-Instanzen) gesendet.
                                             Bei der Erstellung der Seite wurde darauf geachtet auch keine weiteren externen Ressourcen einzubinden.
-                                        </p>
-                                        <p class="warning">
-                                            Bitte beachtet, dass der Assistent noch im Beta-Stadium ist. Kein Gewähr für die korrekte Funktion!
                                         </p>
                                     </div>
                                     <div class="mdl-card__actions">
@@ -120,6 +118,41 @@
                                         </button>    
                                         <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent" id="btn-step-export-data">
                                             Weiter
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </section>
+
+                        <section class="section--center mdl-grid mdl-grid--no-spacing mdl-shadow--2dp" id="step-join-communities">
+                            <div id="dynamic_content">
+                                <div class="mdl-card mdl-cell mdl-cell--12-col">
+                                    <div class="mdl-card__supporting-text">
+                                        <h3>Lokale Communities der neuen Instanz</h3>
+                                        <p>
+                                            Sollen die lokalen Communities der Zielinstanz mit dem Datenexport abgeglichen werden? 
+                                            Hierbei wird geprüft, ob es im Export Communities gibt, welche mit demselben Namen lokal auf der Zielinstanz existieren. 
+                                            Wenn entsprechende Communities gefunden werden, können diese dem Export hinzugefügt werden, um diesen mit dem neuen Account beizutreten.
+                                        </p>
+                                        <form action="#">
+                                            <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                                                <input class="mdl-textfield__input" type="text" id="join-community-instance" value="feddit.org">
+                                                <label class="mdl-textfield__label" for="sample3">Zielinstanz</label>
+                                            </div>
+                                            <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent" id="btn-step-join-communities-request">
+                                                Communities abrufen
+                                            </button>
+                                        </form>
+                                        <div id="fetch-community-progress" class="mdl-progress mdl-js-progress mdl-progress__indeterminate invisible"></div>
+                                        
+                                        <div id="container-add-community-table">
+                                            <!-- dynamically generated -->
+                                        </div>
+                                          
+                                    </div>
+                                    <div class="mdl-card__actions">   
+                                        <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent" id="btn-step-join-communities">
+                                            Überspringen
                                         </button>
                                     </div>
                                 </div>
