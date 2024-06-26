@@ -9,6 +9,7 @@
         <script src="./material-design-lite/material.min.js"></script>
         <script src="./jquery/jquery-3.7.1.min.js"></script>
         <script src="./js/app.js"></script>
+        <script src="./js/test.js"></script>
         <meta name="description" content="Migration von Usereinstellungen zwischen Lemmy-Instanzen">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
     </head>
@@ -120,6 +121,65 @@
                                         </button>    
                                         <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent" id="btn-step-export-data">
                                             Weiter
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </section>
+
+                        <section class="section--center mdl-grid mdl-grid--no-spacing mdl-shadow--2dp" id="step-join-communities">
+                            <div id="dynamic_content">
+                                <div class="mdl-card mdl-cell mdl-cell--12-col">
+                                    <div class="mdl-card__supporting-text">
+                                        <h3>Lokale Communities der neuen Instanz</h3>
+                                        <p>
+                                            Sollen die lokalen Communities der Zielinstanz mit dem Datenexport abgeglichen werden? 
+                                            Hierbei wird geprüft, ob es im Export Communities gibt, welche mit demselben Namen lokal auf der Zielinstanz existieren. 
+                                            Wenn entsprechende Communities gefunden werden, können diese dem Export hinzugefügt werden, um diesen mit dem neuen Account beizutreten.
+                                        </p>
+                                        <form action="#">
+                                            <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                                                <input class="mdl-textfield__input" type="text" id="join-community-instance" value="feddit.org">
+                                                <label class="mdl-textfield__label" for="sample3">Zielinstanz</label>
+                                            </div>
+                                            <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent" id="btn-step-join-communities-request">
+                                                Communities abrufen
+                                            </button>
+                                        </form>
+                                        <!--   Abfrage der angehakten Checkboxen dann mit $('#community-add-table tbody input:checked').closest('tr')  !--> 
+                                        <table class="mdl-data-table mdl-js-data-table mdl-data-table--selectable mdl-shadow--2dp " id="community-add-table">
+                                            <thead>
+                                              <tr>
+                                                <th class="mdl-data-table__cell--non-numeric">Icon</th>
+                                                <th class="mdl-data-table__cell--non-numeric">Title</th>
+                                                <th class="mdl-data-table__cell--non-numeric">Community</th>
+                                              </tr>
+                                            </thead>
+                                            <tbody>
+                                              <tr id="community-add-0">
+                                                <td class="mdl-data-table__cell--non-numeric"><img src="https://feddit.org/pictrs/image/a08f4786-6acf-4f96-8e07-5e03c88f4782.png" class="community-icon"></td>
+                                                <td class="mdl-data-table__cell--non-numeric">Science Fiction</td>
+                                                <td class="mdl-data-table__cell--non-numeric">!scifi@feddit.org</td>
+                                              </tr>
+                                              <tr id="community-add-1">
+                                                <td class="mdl-data-table__cell--non-numeric"></td>
+                                                <td class="mdl-data-table__cell--non-numeric">Haupteingang</td>
+                                                <td class="mdl-data-table__cell--non-numeric">!main@feddit.org</td>
+                                              </tr>
+                                              <tr id="community-add-2">
+                                                <td class="mdl-data-table__cell--non-numeric"><img src="https://feddit.org/pictrs/image/39f96169-0d0b-488b-8dcb-633044ecde94.jpeg" class="community-icon"></td>
+                                                <td class="mdl-data-table__cell--non-numeric">Nachrichten (Welt)</td>
+                                                <td class="mdl-data-table__cell--non-numeric">!nachrichten_int@feddit.org</td>
+                                              </tr>
+                                            </tbody>
+                                          </table>
+                                    </div>
+                                    <div class="mdl-card__actions">
+                                        <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent" id="btn-step-join-communities-add">
+                                            Hinzufügen
+                                        </button>    
+                                        <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent" id="btn-step-join-communities">
+                                            Überspringen
                                         </button>
                                     </div>
                                 </div>

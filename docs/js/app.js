@@ -13,10 +13,12 @@ class MigrationApp{
     #currentStep = 'init';
 
     #stepGraph = new Map([
-        ["init", 'step-start'],
+        //["init", 'step-start'],
+        ["init", 'step-join-communities'],
         ['step-start', 'step-login-source'],
         ['step-login-source', 'step-export-data'],
-        ['step-export-data', 'step-save-data'],
+        ['step-export-data', 'step-join-communities'],
+        ['step-join-communities','step-save-data'],
         ['step-save-data', 'step-login-target'],
         ['step-login-target', 'step-import-data'],
         
