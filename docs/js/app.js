@@ -9,12 +9,13 @@ class MigrationApp{
 
     exportedData = null;
 
+    fetchedLocalCommunities = null;
+
 
     #currentStep = 'init';
 
     #stepGraph = new Map([
-        //["init", 'step-start'],
-        ["init", 'step-join-communities'],
+        ["init", 'step-start'],
         ['step-start', 'step-login-source'],
         ['step-login-source', 'step-export-data'],
         ['step-export-data', 'step-join-communities'],
@@ -28,6 +29,7 @@ class MigrationApp{
         ['step-start', this.completeStepStart],
         ['step-login-source', this.completeStepLoginSource],
         ['step-export-data', this.completeStepExportData],
+        ['step-join-communities',this.completeStepAddCommunities],
         ['step-save-data', this.completeStepSaveData],
         ['step-login-target', this.completeStepLoginTarget],
     ]);
@@ -204,11 +206,32 @@ class MigrationApp{
         $('#container-add-community-table').append(table);
     }
 
+    completeStepAddCommunities (app){
+        if(app.fetchedLocalCommunities){
+            const allChecked = $('#community-add-table tbody input:checked').closest('tr')
+            let idsToAdd = []
+            for (let i = 0; i<allChecked.length; i++){
+                idsToAdd.push(Number(allChecked.get(i).id.replace('community-add-id-','')));
+            }
+            console.log("ids to add",idsToAdd);
+
+            let actors = app.fetchedLocalCommunities.filter((lc) => {return idsToAdd.includes(lc.community.id)});
+            actors = actors.map((lc) => {return lc.community.actor_id});
+
+            console.log("adding communities", actors);
+            app.exportedData.followed_communities = app.exportedData.followed_communities.concat(actors);
+        }
+        return true;
+    }
+
     stepAddCommunitiesFilterAndSort(app, communitiesLocal, exportedData){
-        //const joinedCommunities = exportedData.followed_communities.map((url) => url.substring(url.lastIndexOf('/')+1));
-        const withoutJoinedComm =  communitiesLocal.filter((lc) => {return !exportedData.followed_communities.includes(lc.community.actor_id)});
-        return test;
-        //return ;
+        
+        const localCommNotJoined =  communitiesLocal.filter((lc) => {return !exportedData.followed_communities.includes(lc.community.actor_id)});
+
+        const joinedCommunityNames = exportedData.followed_communities.map((url) => url.substring(url.lastIndexOf('/')+1));
+
+        return localCommNotJoined.filter((lc) => {return joinedCommunityNames.includes(lc.community.name)});
+        
     }
 
     async stepAddCommunitiesFetchExecute(app){
@@ -216,14 +239,13 @@ class MigrationApp{
         $('#fetch-community-progress').removeClass('invisible');
         $('#community-add-table').remove();
         app.targetInstance = $('#join-community-instance').val();
+        $('#instance-target').val(app.targetInstance);
         
         try{
-            let communities = await fetchLocalCommunities(app.targetInstance);
-            debugger
-            //communities = app.stepAddCommunitiesFilterAndSort(app, communities, app.exportedData);
-            communities = app.stepAddCommunitiesFilterAndSort(app, communities, testexport_org);
-
-            app.renderCommunityTable(app, communities);
+            app.fetchedLocalCommunities = await fetchLocalCommunities(app.targetInstance);
+            app.fetchedLocalCommunities = app.stepAddCommunitiesFilterAndSort(app, app.fetchedLocalCommunities, app.exportedData);
+            app.renderCommunityTable(app, app.fetchedLocalCommunities);
+            $('#btn-step-join-communities').text("Ausgewählte hinzufügen und weiter");
         }catch (error) {    
             console.log(error);
             app.showErrorSnackbar(error);
