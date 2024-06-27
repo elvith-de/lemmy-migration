@@ -458,9 +458,7 @@ async function loginLemmy(instance, username, password, twoFASource){
                 "Content-Type": "application/json",
             },
             referrerPolicy: "strict-origin-when-cross-origin", 
-            body: JSON.stringify({
-                exportedData
-            }),
+            body: JSON.stringify(exportedData),
         });
         return response;
     }
