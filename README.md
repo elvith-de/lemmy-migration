@@ -34,4 +34,4 @@ Source repository: https://github.com/google/material-design-lite
 
 By Google
 
-Licensed under Apache-2.0 license  [(see attached LICENSE)](./material-design-lite/LICENSE)
+Licensed under Apache-2.0 license  [(see attached LICENSE)](./docs/material-design-lite/LICENSE)
