@@ -26,7 +26,7 @@ Source repository: https://github.com/jquery/jquery
 
 By OpenJS Foundation and other contributors, https://openjsf.org/
 
-Licensed under MIT License [(see attached LICENSE)](./blob/main/docs/jquery/LICENSE)
+Licensed under MIT License [(see attached LICENSE)](./docs/jquery/LICENSE)
 
 ## Material Design Lite
 
@@ -34,4 +34,4 @@ Source repository: https://github.com/google/material-design-lite
 
 By Google
 
-Licensed under Apache-2.0 license  [(see attached LICENSE)](./blob/docs/material-design-lite/LICENSE)
+Licensed under Apache-2.0 license  [(see attached LICENSE)](./material-design-lite/LICENSE)
